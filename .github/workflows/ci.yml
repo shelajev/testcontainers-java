@@ -1,21 +1,6 @@
 name: CI
 
 on:
-  pull_request:
-    paths-ignore:
-      - '.github/ISSUE_TEMPLATE/*.yaml'
-      - '.github/CODEOWNERS'
-      - '.github/pull_request_template.md'
-      - 'docs/**/*.css'
-      - 'docs/**/*.html'
-      - 'docs/**/*.ico'
-      - 'docs/**/*.md'
-      - 'docs/**/*.png'
-      - 'docs/**/*.svg'
-      - 'mkdocs.yml'
-      - 'README.md'
-      - 'RELEASING.md'
-      - '.sdkmanrc'
   push:
     branches: [ main ]
     paths-ignore:
@@ -52,7 +37,7 @@ jobs:
     permissions:
       checks: write
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
       - uses: ./.github/actions/setup-build
       - name: Build and test with Gradle
         run: |
@@ -65,10 +50,10 @@ jobs:
     permissions:
       checks: write
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
       - uses: ./.github/actions/setup-build
       - name: Setup Testcontainers Cloud Client
-        uses: atomicjar/testcontainers-cloud-setup-action@main
+        uses: atomicjar/testcontainers-cloud-setup-action@22064b87e13754258b1a686f4d93147f904c28d5 # main
         with:
           token: ${{ secrets.TC_CLOUD_TOKEN }}
           args: --max-concurrency=4
@@ -84,10 +69,10 @@ jobs:
     outputs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
       - uses: ./.github/actions/setup-java
       - name: Setup Gradle Build Action
-        uses: gradle/actions/setup-gradle@v3
+        uses: gradle/actions/setup-gradle@d9c87d481d55275bb5441eef3fe0e46805f9ef70 # v3
       - id: set-matrix
         env:
           # Since we override the tests executor,
@@ -106,7 +91,7 @@ jobs:
     permissions:
       checks: write
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
       - uses: ./.github/actions/setup-build
       - name: Build and test with Gradle (${{matrix.gradle_args}})
         run: |
@@ -119,10 +104,10 @@ jobs:
     outputs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
       - uses: ./.github/actions/setup-java
       - name: Setup Gradle Build Action
-        uses: gradle/actions/setup-gradle@v3
+        uses: gradle/actions/setup-gradle@d9c87d481d55275bb5441eef3fe0e46805f9ef70 # v3
       - id: set-matrix
         working-directory: ./examples/
         env:
@@ -142,7 +127,7 @@ jobs:
     permissions:
       checks: write
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
       - uses: ./.github/actions/setup-build
       - name: Build and test Examples with Gradle (${{matrix.gradle_args}})
         working-directory: ./examples/
@@ -156,10 +141,10 @@ jobs:
     outputs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
       - uses: ./.github/actions/setup-java
       - name: Setup Gradle Build Action
-        uses: gradle/actions/setup-gradle@v3
+        uses: gradle/actions/setup-gradle@d9c87d481d55275bb5441eef3fe0e46805f9ef70 # v3
       - id: set-matrix
         env:
           # Since we override the tests executor,
@@ -178,7 +163,7 @@ jobs:
     permissions:
       checks: write
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
       - uses: ./.github/actions/setup-build
       - name: Build and test with Gradle (${{matrix.gradle_args}})
         run: |

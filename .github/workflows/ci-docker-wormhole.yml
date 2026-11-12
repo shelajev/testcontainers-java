@@ -1,21 +1,6 @@
 name: CI-Docker-Wormhole
 
 on:
-  pull_request:
-    paths-ignore:
-      - '.github/ISSUE_TEMPLATE/*.yaml'
-      - '.github/CODEOWNERS'
-      - '.github/pull_request_template.md'
-      - 'docs/**/*.css'
-      - 'docs/**/*.html'
-      - 'docs/**/*.ico'
-      - 'docs/**/*.md'
-      - 'docs/**/*.png'
-      - 'docs/**/*.svg'
-      - 'mkdocs.yml'
-      - 'README.md'
-      - 'RELEASING.md'
-      - '.sdkmanrc'
   push:
     branches: [ main ]
     paths-ignore:
@@ -44,7 +29,7 @@ jobs:
   in-docker_test:
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
       - name: Build with Gradle
         run: |
           docker run -i --rm \

@@ -1,21 +1,6 @@
 name: CI-Docker-Rootless
 
 on:
-  pull_request:
-    paths-ignore:
-      - '.github/ISSUE_TEMPLATE/*.yaml'
-      - '.github/CODEOWNERS'
-      - '.github/pull_request_template.md'
-      - 'docs/**/*.css'
-      - 'docs/**/*.html'
-      - 'docs/**/*.ico'
-      - 'docs/**/*.md'
-      - 'docs/**/*.png'
-      - 'docs/**/*.svg'
-      - 'mkdocs.yml'
-      - 'README.md'
-      - 'RELEASING.md'
-      - '.sdkmanrc'
   push:
     branches: [ main ]
     paths-ignore:
@@ -46,13 +31,13 @@ jobs:
     permissions:
       checks: write
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
       - name: Setup rootless Docker
-        uses: ScribeMD/rootless-docker@0.2.2
+        uses: ScribeMD/rootless-docker@6bd157a512c2fafa4e0243a8aa87d964eb890886 # 0.2.2
       - name: Remove Docket root socket
         run: sudo rm -rf /var/run/docker.sock
       - name: Setup Gradle Build Action
-        uses: gradle/actions/setup-gradle@v3
+        uses: gradle/actions/setup-gradle@d9c87d481d55275bb5441eef3fe0e46805f9ef70 # v3
       - name: Build with Gradle
         run: ./gradlew --no-daemon --scan testcontainers:test --tests '*GenericContainerRuleTest'
       - uses: ./.github/actions/setup-junit-report
